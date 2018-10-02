@@ -111,11 +111,9 @@ public static class Math_Utils {
 	*/
 	public static float two_points_angle (Vector2 a, Vector2 b) {
 		Vector2 target = b - a;
-		float angle = (Mathf.Atan(target.y / target.x) * 180F / Mathf.PI);
+		float angle = Mathf.Atan(target.y / target.x) * Mathf.Rad2Deg;
 		if (target.x <= 0F) {
 		    angle += 180F;
-		} else {
-		    angle += 0F;
 		}
 		return angle * Mathf.Deg2Rad;
 	}
@@ -129,16 +127,16 @@ public static class Math_Utils {
 			float x_c_1 = new_point [0];
 			float y_c_1 = new_point [1];
 
-			float x_c_2 = Mathf.Pow (x_c_1, 2);
-			float y_c_2 = Mathf.Pow (y_c_1, 2);
+			float x_c_2 = Mathf.Pow(x_c_1, 2);
+			float y_c_2 = Mathf.Pow(y_c_1, 2);
 
-			float x_circle = x_c_1 * (Mathf.Sqrt (x_c_2 + y_c_2 - (x_c_2 * y_c_2)) / Mathf.Sqrt (x_c_2 + y_c_2));
+			float x_circle = x_c_1 * (Mathf.Sqrt(x_c_2 + y_c_2 - (x_c_2 * y_c_2)) / Mathf.Sqrt(x_c_2 + y_c_2));
 
-			float y_circle = y_c_1 * (Mathf.Sqrt (x_c_2 + y_c_2 - (x_c_2 * y_c_2)) / Mathf.Sqrt (x_c_2 + y_c_2));
+			float y_circle = y_c_1 * (Mathf.Sqrt(x_c_2 + y_c_2 - (x_c_2 * y_c_2)) / Mathf.Sqrt(x_c_2 + y_c_2));
 
-			return new Vector2 (x_circle, y_circle);
+			return new Vector2(x_circle, y_circle);
 		} else {
-			return new Vector2 (0, 0);
+			return new Vector2(0F, 0F);
 		}
 	}
 }
