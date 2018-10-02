@@ -224,7 +224,7 @@ public static class Debug_Utils {
 	*/
 	public static void draw_circle (Vector2 position, float radius, Color color) {
 		Vector3 new_pos = new Vector3(position.x, position.y, 0F);
-		Utils.draw_circle(new_pos, radius, color);
+		Debug_Utils.draw_circle(new_pos, radius, color);
 	}
 
 	/**
@@ -254,6 +254,6 @@ public static class Debug_Utils {
 	*/
 	public static void draw_rectangle (Vector2 position, float width, float height, Color color) {
 		Vector3 new_pos = new Vector3(position.x, position.y);
-		draw_rectangle(new_pos, width, height, color);
+		Debug_Utils.draw_rectangle(new_pos, width, height, color);
 	}
 }
