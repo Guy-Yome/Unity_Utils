@@ -5,10 +5,23 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Text;
-using SimpleJSON; // SimpleJSON on asset store (GitHub) is required
+using SimpleJSON;
 
-// --------------- Data objects of result validity (The word correct is used instead of valid to make it easier to distinguish between valid and value) ---------------
+// --------------- Data objects for result validation ---------------
 
+/**
+* The classes in this category are built to make sure that if you would
+* maybe have a function that could return no result or a result, you get
+* all the data in the same object.
+*
+* To use them, instead of returning a nullable type or a simple variable type as float, you can
+* set these matching types instead. By default they are set to be "correct". So, you initialize them with their constructor
+* with no parameters and if there is no result or an error, you can set "correct" to false and set an error message.
+* If there is a result, you simply put it inside the "value" attribute.
+* This makes it so you will still receive a coherent answer from your function.
+*
+* The word correct is used instead of valid to make it easier to distinguish between the words "valid" and "value".
+*/
 public class Vector4_Result {
 	public bool correct = true;
 	public Vector4 value = Vector4.zero;
@@ -81,30 +94,35 @@ public class JSONNode_Result {
 	}
 }
 
-// --------------- Input/Output Utils ---------------
-
-
-// --------------- Debugging Utils ---------------
+// --------------- Utils Static Classes ---------------
 
 public static class Math_Utils {
-	// Gets the angle in Deg and converts it in Rad
-	public static Vector3 angle_direction (float angle) {
-		return new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0F).normalized;
+	/**
+	* Gets the angle in Deg and converts it in Rad and returns the normalized Vector2 associated with it
+	*/
+	public static Vector2 angle_direction (float angle) {
+		return new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)).normalized;
 	}
 
-	// Source : https://stackoverflow.com/questions/9970281/java-calculating-the-angle-between-two-points-in-degrees
-	public static float two_points_angle (Vector3 a, Vector3 b) {
-		Vector3 target = b - a;
+	/**
+	* Returns the angle in Rad of the line made from point a to point b.
+	*
+	* Source : https://stackoverflow.com/questions/9970281/java-calculating-the-angle-between-two-points-in-degrees
+	*/
+	public static float two_points_angle (Vector2 a, Vector2 b) {
+		Vector2 target = b - a;
 		float angle = (Mathf.Atan(target.y / target.x) * 180F / Mathf.PI);
 		if (target.x <= 0F) {
 		    angle += 180F;
 		} else {
 		    angle += 0F;
 		}
-		return angle;
+		return angle * Mathf.Deg2Rad;
 	}
 
-	// Converts a square input (Ps3 controller for example) to a linear circle input
+	/**
+	* Converts a square input (Ps3 controller for example) to a linear circle input
+	*/
 	public static Vector2 square_to_circle (Vector2 point) {
 		Vector2 new_point = new Vector2(point.x, point.y);
 		if (Vector2.Distance(Vector2.zero, new_point) > 0F) {
@@ -126,7 +144,12 @@ public static class Math_Utils {
 }
 
 public static class IO_Utils {
-	// The path is absolute in this class. We need to tell the full path from the folder one level above Assets.
+	/**
+	* Returns a String_Result for the WHOLE file submitted.
+	* The "correct" attribute of the data returned maybe be false if the file exists or not.
+	*
+	* The path is absolute. We need to tell the full path from the folder one level above Assets.
+	*/
 	public static String_Result read_full_file (string path) {
 		String_Result result = new String_Result();
         try {
@@ -143,7 +166,14 @@ public static class IO_Utils {
 		return result;
     }
 
-    // SimpleJSON on asset store (GitHub) is required to use this functionnality
+    /**
+    * Returns a more "dynamic" decoding of a JSON file.
+    * The return data may have an error depending on the file's existence and the file's JSON data structure.
+    *
+    * SimpleJSON on asset store (GitHub) is required to use this functionnality.
+    *
+    * The path is absolute. We need to tell the full path from the folder one level above Assets.
+    */
     public static JSONNode_Result JSON_decode_file (string path) {
     	String_Result json_file_content = IO_Utils.read_full_file(path);
     	JSONNode_Result json_data = new JSONNode_Result();
@@ -169,9 +199,14 @@ public static class IO_Utils {
 }
 
 public static class Debug_Utils {
-	// Vector3
+	/**
+	* Draws a circle in 3D space with a determined radius and color.
+	*
+	* The quality of the circle definition is set to 15 sides since it is a debugging
+	* function and doesn't really more precision.
+	*/
 	public static void draw_circle (Vector3 position, float radius, Color color) {
-		float segments = 10F;
+		float segments = 15F;
 		for (float s = 0; s < segments; s++) {
 			float angle_a = (360F * (s / segments)) * Mathf.Deg2Rad;
 			float angle_b = (360F * ((s + 1) / segments)) * Mathf.Deg2Rad;
@@ -183,13 +218,21 @@ public static class Debug_Utils {
 		}
 	}
 
-	// Vector2
+	/**
+	* Draws a circle in 3D space from a 2D coordinate with a determined radius and color.
+	*
+	* The quality of the circle definition is set to 15 sides since it is a debugging
+	* function and doesn't really more precision.
+	*/
 	public static void draw_circle (Vector2 position, float radius, Color color) {
 		Vector3 new_pos = new Vector3(position.x, position.y, 0F);
 		Utils.draw_circle(new_pos, radius, color);
 	}
 
-	// Vector3
+	/**
+	* Draws a rectangle in 3D space with a determined width, height and color.
+	* The position received is set at the center of the rectangle.
+	*/
 	public static void draw_rectangle (Vector3 position, float width, float height, Color color) {
 		float top = position.y + (height / 2F);
 		float bottom = position.y - (height / 2F);
@@ -207,7 +250,10 @@ public static class Debug_Utils {
 		Debug.DrawLine(bl, tl, color);
 	}
 
-	// Vector2
+	/**
+	* Draws a rectangle in 3D space from a 2D coordinate with a determined width, height and color.
+	* The position received is set at the center of the rectangle.
+	*/
 	public static void draw_rectangle (Vector2 position, float width, float height, Color color) {
 		Vector3 new_pos = new Vector3(position.x, position.y);
 		draw_rectangle(new_pos, width, height, color);
