@@ -6,7 +6,7 @@ using UnityEngine;
 public class result_objects : MonoBehaviour {
 	void Start () {
 		// This is an example of the Result objects.
-		// What is applied here is also applicable for the other types mde the same way (not only for Vector3).
+		// What is applied here is also applicable for the other types made the same way (not only for Vector3).
 		Vector3_Result position_of_target_correct = get_vector3_result(false);
 		Vector3_Result position_of_target_error   = get_vector3_result(true);
 
