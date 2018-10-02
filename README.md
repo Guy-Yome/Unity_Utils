@@ -1,6 +1,6 @@
 # Unity_Utils ![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 
-Unity_Utils is a set of functionnalities made to help C# Unity Developpers simplify their lives on generic and specific tasks.
+Unity_Utils is a set of functionnalities made to help C# Unity Developpers simplify their lives on generic and specific tasks. This is a collection of the functions I either found on google or made for myself to help the programming flow.
 
 ## Installation
 
