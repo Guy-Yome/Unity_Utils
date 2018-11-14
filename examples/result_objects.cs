@@ -5,6 +5,31 @@ using UnityEngine;
 
 public class result_objects : MonoBehaviour {
 	void Start () {
+
+		// -------------------- TResult<T> class example --------------------
+
+		// Stock a Vector3 in the result value
+		TResult<Vector3> generic_vector3_result = new TResult<Vector3>();
+		generic_vector3_result.value = new Vector3(1F, 2F, 3F);
+		Debug.Log(generic_vector3_result.value); // Will display (1.0, 2.0, 3.0)
+
+		// Stock a more complex variable (Dictionary<int, string>) in the result value
+		Dictionary<int, string> a_dictionary = new Dictionary<int, string>();
+		a_dictionary.Add(25, "A string");
+		a_dictionary.Add(658, "B string");
+
+		TResult<Dictionary<int, string>> generic_dictionary_result = new TResult<Dictionary<int, string>>();
+		generic_dictionary_result.value = a_dictionary;
+		Debug.Log(generic_dictionary_result.value[25]); // Will display "A string"
+		Debug.Log(generic_dictionary_result.value[658]); // Will display "B string"
+
+		// Stock a string in the result value
+		TResult<string> generic_string_result = new TResult<string>();
+		generic_string_result.value = "Another string";
+		Debug.Log(generic_string_result.value); // Will display "Another string"
+
+		// -------------------- Vector3_Result (Appliable to more specific similar classes) class example --------------------
+
 		// This is an example of the Result objects.
 		// What is applied here is also applicable for the other types made the same way (not only for Vector3).
 		Vector3_Result position_of_target_correct = get_vector3_result(false);

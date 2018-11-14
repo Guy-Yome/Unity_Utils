@@ -19,6 +19,22 @@ using SimpleJSON;
 *
 * The word correct is used instead of valid to make it easier to distinguish between the words "valid" and "value".
 */
+
+/**
+* This class is the generic version of all the next classes.
+* It can be filled with any variable type.
+* Although the way to create it is more complex, it includes every types.
+* Examples to use this class is in examples/result_objects.cs at the "TResult<T> class example" section.
+*/
+public class TResult<T> {
+	public bool correct = true;
+	public T value;
+	public string error = "";
+
+	public TResult () {
+	}
+}
+
 public class Vector4_Result {
 	public bool correct = true;
 	public Vector4 value = Vector4.zero;
