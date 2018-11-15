@@ -18,6 +18,17 @@ public class utils_functions : MonoBehaviour {
 		Debug.Log(data_result.value["Random_Array"][2]); // Displays a float (0.25F)
 		Debug.Log(data_result.value["Random_Array"][3][2]); // Displays a sub array element (2)
 
+		// ----------------- List shuffling -----------------
+
+		List<int> int_list = new List<int>() {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+		List<string> string_list = new List<string>() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+
+		// Directly shuffle the list and change its value
+		int_list.shuffle();
+
+		// Shuffle a list and get its value as a return without affecting the original list
+		List<string> new_string_list = Data_Utils.shuffle_list(string_list);
+
 		// ----------------- Demonstrates the use of SMatrix -----------------
 
 		// How to create a matrix with a format but no direct values (All 0 for now)
@@ -60,12 +71,12 @@ public class utils_functions : MonoBehaviour {
 
 		// Directly transpose the matrix
 		a_matrix.transpose();
-		// Transpose a matrix without changing its values, but instead get it an a new matrix
+		// Transpose a matrix without changing its values, but instead get it as a new matrix
 		SMatrix transposed_a_matrix = SMatrix.transpose(a_matrix);
 
 		// Directly normalize the matrix
 		a_matrix.normalize();
-		// Normalize a matrix without changing its values, but instead get it an a new matrix
+		// Normalize a matrix without changing its values, but instead get it as a new matrix
 		SMatrix normalized_a_matrix = SMatrix.normalize(a_matrix);
 
 		// Get the determinant of the matrix if any
