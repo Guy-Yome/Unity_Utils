@@ -19,7 +19,7 @@ public static class Math_Utils {
 	public static float two_points_angle (Vector2 a, Vector2 b) {
 		Vector2 target = b - a;
 		float angle = Mathf.Atan(target.y / target.x) * Mathf.Rad2Deg;
-		if (target.x <= 0F) {
+		if (target.x < 0F) {
 		    angle += 180F;
 		}
 		return angle * Mathf.Deg2Rad;
