@@ -46,4 +46,12 @@ public static class Math_Utils {
 			return new Vector2(0F, 0F);
 		}
 	}
+
+	/**
+	* Clamps any vector2 input (Ps3 controller for example) to a vector2 of magnitude 1 max
+	*/
+	public static Vector2 clamp_to_unit_vector (Vector2 point) {
+		Vector2 new_point = new Vector2(point.x, point.y);
+		return Vector2.ClampMagnitude(new_point, 1F);
+	}
 }
